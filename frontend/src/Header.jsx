@@ -1,10 +1,27 @@
 import React from 'react';
 
-export default function Header() {
+const PILLARS = {
+  "Reel": "var(--c-reel)",
+  "Carrusel": "var(--c-carrusel)",
+  "TikTok": "var(--c-tiktok)",
+  "Story": "var(--c-story)",
+  "Post": "var(--c-post)"
+};
+
+export default function Header({ activeFilters, onToggleFilter }) {
   return (
     <div className="filters">
       <span className="label">Filtrar por pilar:</span>
-      {/* TODO: Add filter chips */}
+      {Object.entries(PILLARS).map(([pillar, color]) => (
+        <div 
+          key={pillar}
+          className={`chip ${activeFilters.has(pillar) ? 'active' : ''}`}
+          style={{ '--dot': color }}
+          onClick={() => onToggleFilter(pillar)}
+        >
+          <span className="dot"></span>{pillar}
+        </div>
+      ))}
     </div>
   );
 }
